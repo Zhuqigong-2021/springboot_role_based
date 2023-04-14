@@ -1,0 +1,426 @@
+
+.back {
+    background-color:red;
+}
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+}
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}
+/*front page*/
+.front{
+    background-image:linear-gradient(to bottom ,rgba(0,0,0,0.2),rgba(0,0,0,0.7)) ,url("https://images.unsplash.com/photo-1500332988905-1bf2a5733f63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+    width:100vw;
+    min-height:100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.text_head{
+    color:white;
+    font-weight: 1000;
+    font-size:50px;
+}
+.text_message{
+    margin-top:20px;
+    margin-bottom:50px;
+    max-width: 500px;
+}
+.more{
+    padding:12px 20px;
+    margin-top:40px
+
+}
+
+
+
+
+/*home*/
+
+ *{
+     margin:0;
+     padding:0;
+     box-sizing: border-box;
+     scroll-margin-top: 60px;
+ }
+.sidebar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    height:100vh;
+    width:150px;
+}
+.icon{
+    transform:scale(3);
+    color:white;
+    margin-bottom:80px;
+}
+.greeting{
+    margin-top:-50px;
+    margin-bottom:40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform:scale(.75);
+    text-shadow: 0 0 5px #5eead4;
+
+
+}
+.truncate{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.departments,.patients{
+    background:linear-gradient(to right,transparent,#d946ef ,#8b5cf6,#d946ef,transparent);
+    padding:5px 0px !important;
+    color:white;
+    margin-bottom: 6rem;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.depart_card::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.depart_card {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    overflow-y: hidden;
+}
+
+.cutoff-text{
+    --max-lines:2;
+    --line-height:1.4;
+    max-height:calc(var(--max-lines)*1em*var(--line-height));
+    line-height: var(--line-height);
+    overflow: hidden;
+    position:relative;
+}
+.expand-btn{
+    appearance: none;
+    border:1px solid black;
+    border-radius:0.25em;
+    cursor:pointer;
+    margin-top:1rem;
+}
+.expand-btn:hover{
+    background-color:white;
+    color:black;
+}
+.expand-btn::before{
+    content:"Read More";
+}
+.expand-btn:checked::before{
+    content:"Collapse"
+}
+.cutoff-text:has(+ .expand-btn:checked){
+    max-height:none;
+}
+
+.header{
+    position:fixed;
+    top:0;
+    left:150px;
+    right:0;
+    display: block;
+    background-color:rgba(0,0,0,0.75);
+    padding:10px 20px;
+    z-index:40;
+}
+.btn{
+    border-radius:500px;
+}
+.out{
+    font-size:12px;
+    padding:4px 15px;
+    background: transparent;
+    border-color: #6366f1;
+    box-shadow: 0 0 4px #6366f1;
+    color:#6366f1;
+}
+.out:hover{
+    background-color:#6366f1;
+}
+#home,#depart,#doctor,#nurse,#patient,#about{
+    min-height:100vh;
+    padding:0 30px;
+}
+.list-item{
+    font-size:12px;
+    margin-left:5px;
+    color:rgba(255,255,255,0.75);
+}
+.list-item:hover{
+    color:white;
+    transform:scale(1.05);
+    text-shadow: 0 0 4px #6366f1;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+.plus{
+    margin-top:-20px;
+    padding:4px ;
+    background:linear-gradient(to right, transparent,#d946ef ,#8b5cf6);
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.hidden{
+    display: none;
+}
+.card{
+    min-height:300px;
+}
+#doctor,#patient{
+    background-color:rgba(0,0,0,0.85);
+}
+.doctor_table{
+    margin-top:50px;
+    color:white;
+    border:none;
+}
+/*.nurse_table{*/
+/*    margin-top:20px;*/
+/*}*/
+.nurse_card{
+    display: flex;
+    box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    border-radius:10px;
+    overflow: hidden;
+    background:linear-gradient(to bottom,rgb(236,72,153),#8b5cf6) ;
+    padding-top:12px;
+    margin-top:2rem;
+}
+.rounded-circle{
+    border:2px solid white;
+    border-radius:5px;
+}
+.nurse_info{
+    background-color:white;
+    color:white;
+    padding:1.5rem;
+    /*position:absolute;*/
+    /*bottom:0;*/
+    /*left:0;*/
+    /*right:0;*/
+    height:30%;
+    border:none;
+
+}
+.update_nurse{
+    bottom:5px;
+    left:5px;
+}
+
+#docCard{
+    margin-top: 20px;
+
+}
+#show{
+    /*background:linear-gradient(to right ,#6366f1,#a855f7 ,#ec4899);*/
+    border:none;
+    /*margin:20px 0;*/
+    color:white;
+
+}
+
+.registerDoc{
+
+    background-color: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height:100vh;
+}
+.trash{
+    position:absolute;
+    bottom:5px;
+    right:5px;
+}
+.star{
+    justify-content: center;
+    align-items: center;
+    /*margin-bottom: 20px;*/
+}
+.star i{
+    margin-left:8px;
+    margin-right:8px;
+}
+#home{
+    position: relative;
+    background-image:linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),url("https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib= rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80");
+    background-repeat: no-repeat;
+
+    background-size:cover;
+    width: calc(100vw - 169px);
+
+}
+.landing{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    max-width: 950px;
+    text-align: center;
+}
+.welcome{
+    font-size:40px;
+    font-weight: 900;
+
+    color:white;
+}
+.intro{
+
+    margin-top:40px;
+    font-size: 20px;
+    color:white;
+    margin-bottom: 80px;
+}
+.learn{
+    color:white;
+    background-color:rgba(236,72,153,0.95);
+    padding: 10px 20px;
+    box-shadow:0 1px 1px  rgba(0,0,0,0.3);
+}
+.learn:hover{
+    background-color:rgb(236,72,153);
+    transform:scale(.95);
+}
+.link_about{
+    color:white;
+    text-decoration: none;
+    color:rgba(255,255,255,.8);
+}
+.link_about:hover{
+    color:white;
+}
+.search{
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+}
+.search_btn{
+    border:1px solid white;
+    border-radius:3px;
+    color:white;
+    /*background-color:rgba(0,0,0,0.8);*/
+    background:linear-gradient(to right ,#6366f1,#a855f7 );
+    padding:0 4px;
+}
+.title_heading{
+    padding-top:5rem;
+    padding-bottom: 5rem;
+}
+.card_dep{
+    height:350px;
+    margin-bottom: 2rem;
+    overflow: auto;
+}
+#contact {
+    color:white;
+    padding:0 30px;
+    background:linear-gradient(to right ,#6366f1,#a855f7 ,#ec4899);
+}
+.google-map iframe{
+    border-radius:20px;
+
+}
+.list-group-item{
+    background-color:transparent;
+    color:white;
+    border:none;
+    outline:none;
+    font-size: small;
+}
+.footer{
+    position:fixed;
+    bottom:0;
+    right:2px;
+    left:150px;
+
+    display:flex;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    background:linear-gradient(to right ,#6366f1,#a855f7 ,#ec4899);
+}
+
+main {
+    padding-left:150px;
+    padding-bottom:20px;
+
+}
+
+/*this is for arrow down*/
+.arrows {
+    width: 60px;
+    height: 72px;
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+    bottom: 80px;
+}
+
+.arrows path {
+    /*stroke: #2994D1;*/
+    stroke: #f0abfc;
+    fill: transparent;
+    stroke-width: 1px;
+    animation: arrow 2s infinite;
+    -webkit-animation: arrow 2s infinite;
+}
+
+@keyframes arrow
+{
+    0% {opacity:0}
+    40% {opacity:1}
+    80% {opacity:0}
+    100% {opacity:0}
+}
+
+@-webkit-keyframes arrow /*Safari and Chrome*/
+{
+    0% {opacity:0}
+    40% {opacity:1}
+    80% {opacity:0}
+    100% {opacity:0}
+}
+
+.arrows path.a1 {
+    animation-delay:-1s;
+    -webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.arrows path.a2 {
+    animation-delay:-0.5s;
+    -webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.arrows path.a3 {
+    animation-delay:0s;
+    -webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
