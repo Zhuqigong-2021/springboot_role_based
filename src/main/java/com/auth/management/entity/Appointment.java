@@ -1,5 +1,7 @@
 package com.auth.management.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +26,7 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id",nullable = false)
+    @JsonManagedReference
     private User doctor;
 
     @Column(name = "appointment_time" ,nullable = false)

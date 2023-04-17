@@ -1,6 +1,8 @@
 package com.auth.management.service;
 
+import com.auth.management.dto.AppointmentDto;
 import com.auth.management.dto.RegistrationDto;
+import com.auth.management.entity.Appointment;
 import com.auth.management.entity.Role;
 import com.auth.management.entity.User;
 import com.auth.management.model.UserModel;
@@ -15,6 +17,8 @@ public interface UserService {
 
     //use for both patient and doctor
     void saveUpdate(User user);
+
+
 
 
 

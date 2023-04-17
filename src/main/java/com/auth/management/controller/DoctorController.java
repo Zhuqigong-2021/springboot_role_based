@@ -1,7 +1,9 @@
 package com.auth.management.controller;
 
 import com.auth.management.dto.RegistrationDto;
+import com.auth.management.entity.Appointment;
 import com.auth.management.mapper.MapperHelper;
+import com.auth.management.service.AppointmentService;
 import com.auth.management.service.UserService;
 import com.auth.management.util.SecurityUtils;
 import jakarta.validation.Valid;
@@ -12,30 +14,48 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 public class DoctorController {
+
+
     private final UserService userService;
     private final MapperHelper mapperHelper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public DoctorController(UserService userService, MapperHelper mapperHelper, PasswordEncoder passwordEncoder) {
+    private final AppointmentService appointmentService;
+
+    public DoctorController(UserService userService, MapperHelper mapperHelper, PasswordEncoder passwordEncoder, AppointmentService appointmentService) {
         this.userService = userService;
         this.mapperHelper = mapperHelper;
         this.passwordEncoder = passwordEncoder;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping("/doctor")
     public String doctorPage(Model model){
         User currentUser = SecurityUtils.getCurrentUser();
-        String name = currentUser.getUsername().toString();
-        model.addAttribute("doctor",name);
-        List<com.auth.management.entity.User> patients = userService.findByRole("ROLE_GUEST");
+        String user = currentUser!=null? currentUser.getUsername():"";
+        String role = SecurityUtils.getRole();
+        String name = currentUser!=null? currentUser.getUsername():"";
+        com.auth.management.entity.User currentDoctor = userService.findByEmail(name);
+        Long doctorId = currentDoctor.getId();
+        List<com.auth.management.entity.User> patientsByDoctorId = appointmentService.findPatientsByDoctorId(doctorId);
+        List<LocalDateTime> dateTimeByDoctorId = appointmentService.findDateTimeByDoctorId(doctorId);
+        List<Appointment> appointmentsByDoctorId = appointmentService.findAppointmentsByDoctorId(doctorId);
+
         List<com.auth.management.entity.User> nurses = userService.findByRole("ROLE_MANAGER");
-        model.addAttribute("patients",patients);
+
         model.addAttribute("nurses",nurses);
+        model.addAttribute("role",role);
+        model.addAttribute("user",user);
+        model.addAttribute("doctor",name);
+        model.addAttribute("patients",patientsByDoctorId);
+        model.addAttribute("schedules",dateTimeByDoctorId);
+        model.addAttribute("appointments",appointmentsByDoctorId);
         return "home";
     }
   //register a doctor
@@ -76,8 +96,6 @@ public class DoctorController {
 
         return "updateDoc";
     }
-
-
 
     @PostMapping("/updateDoctor/save")
     public String saveExistedDoctor( @Valid @ModelAttribute("doctor") RegistrationDto registrationDto,BindingResult result,Model model ) {

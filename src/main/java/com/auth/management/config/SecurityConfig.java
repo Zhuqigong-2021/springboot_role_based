@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .csrf()
                 .disable()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                 .requestMatchers("/register/**").permitAll()
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "GUEST","DOCTOR","MANAGER")

@@ -4,7 +4,7 @@ import com.auth.management.dto.RegistrationDto;
 import com.auth.management.entity.Role;
 import com.auth.management.entity.User;
 import com.auth.management.mapper.MapperHelper;
-import com.auth.management.model.UserModel;
+import com.auth.management.repository.AppointmentRepository;
 import com.auth.management.repository.RoleRepository;
 import com.auth.management.repository.UserRepository;
 import com.auth.management.service.UserService;
@@ -16,20 +16,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public class UserServiceImpl implements UserService {
+
+
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final AppointmentRepository appointmentRepository;
+
     private final MapperHelper mapperHelper;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, MapperHelper mapperHelper) {
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AppointmentRepository appointmentRepository, MapperHelper mapperHelper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.appointmentRepository = appointmentRepository;
         this.mapperHelper = mapperHelper;
     }
+
+
 
     @Override
     public void saveUser(RegistrationDto registrationDto) {
@@ -80,6 +89,7 @@ public class UserServiceImpl implements UserService {
     public void saveUpdate(User user) {
         userRepository.save(user);
     }
+
 
 
     @Override

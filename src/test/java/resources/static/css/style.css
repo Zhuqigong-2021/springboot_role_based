@@ -41,12 +41,16 @@ li {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-}
 
+}
+front_text{
+    border:1px solid red;
+}
 .text_head{
     color:white;
     font-weight: 1000;
     font-size:50px;
+
 }
 .text_message{
     margin-top:20px;

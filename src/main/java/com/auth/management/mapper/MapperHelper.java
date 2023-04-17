@@ -1,6 +1,8 @@
 package com.auth.management.mapper;
 
+import com.auth.management.dto.AppointmentDto;
 import com.auth.management.dto.RegistrationDto;
+import com.auth.management.entity.Appointment;
 import com.auth.management.entity.User;
 import com.auth.management.model.UserModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,12 +33,8 @@ public class MapperHelper {
     public RegistrationDto convertUserEntityToRegisterDto(User user){
         return mapper.convertValue(user,RegistrationDto.class);
     }
-    public UserModel convertUserEntityToUserModel(User user){
-        return mapper.convertValue(user,UserModel.class);
-    }
-    public User convertUserModelToUserEntity(UserModel userModel){
-        return mapper.convertValue(userModel,User.class);
-    }
+
+
     public RegistrationDto convertUserModelToRegisterDto(UserModel userModel){
         return mapper.convertValue(userModel,RegistrationDto.class);
     }
@@ -46,6 +44,10 @@ public class MapperHelper {
     }
     public User convertRegisterDtoToUserEntity(RegistrationDto registrationDto){
         return mapper.convertValue(registrationDto,User.class);
+    }
+
+    public Appointment convertAppointmentDtoToAppointmentEntity(AppointmentDto appointmentDto){
+        return mapper.convertValue(appointmentDto, Appointment.class);
     }
 
 

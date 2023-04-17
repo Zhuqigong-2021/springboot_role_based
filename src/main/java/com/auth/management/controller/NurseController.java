@@ -35,13 +35,15 @@ public class NurseController {
     @GetMapping("/nurse")
     public String nursePage(Model model){
         User currentUser = SecurityUtils.getCurrentUser();
-        String name = currentUser.getUsername().toString();
+        String name = currentUser!=null? currentUser.getUsername():"";
         model.addAttribute("user",name);
-
+        String role = SecurityUtils.getRole();
         List<com.auth.management.entity.User> patients = userService.findByRole("ROLE_GUEST");
         List<com.auth.management.entity.User> doctors = userService.findByRole("ROLE_DOCTOR");
         model.addAttribute("patients",patients);
         model.addAttribute("doctors",doctors);
+        model.addAttribute("role",role);
+
 
         return "home";
     }

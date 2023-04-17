@@ -1,11 +1,10 @@
 package com.auth.management.controller;
 
 import com.auth.management.dto.RegistrationDto;
-import com.auth.management.entity.Role;
+import com.auth.management.entity.Appointment;
 import com.auth.management.mapper.MapperHelper;
-import com.auth.management.repository.RoleRepository;
+import com.auth.management.service.AppointmentService;
 import com.auth.management.service.UserService;
-import com.auth.management.util.ROLE;
 import com.auth.management.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.security.core.userdetails.User;
@@ -18,38 +17,67 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 public class GuestController {
+
     private final UserService userService;
-    private final RoleRepository roleRepository;
+
 
     private final MapperHelper mapperHelper;
 
     private final PasswordEncoder passwordEncoder;
 
-    public GuestController(UserService userService, RoleRepository roleRepository, MapperHelper mapperHelper, PasswordEncoder passwordEncoder) {
+
+
+    private final AppointmentService appointmentService;
+
+
+    public GuestController(UserService userService,  MapperHelper mapperHelper, PasswordEncoder passwordEncoder, AppointmentService appointmentService) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
         this.mapperHelper = mapperHelper;
         this.passwordEncoder = passwordEncoder;
+        this.appointmentService = appointmentService;
     }
-
+//render patient page with wanted data
     @GetMapping("/guest")
     public String guestPage(Model model){
-        User currentUser = SecurityUtils.getCurrentUser();
-        String name = currentUser.getUsername().toString();
+        User currentUser =  SecurityUtils.getCurrentUser();
+        String name = currentUser!=null? currentUser.getUsername():"";
         model.addAttribute("user",name);
+        model.addAttribute("currentUser",currentUser);
+        String role = SecurityUtils.getRole();
+        model.addAttribute("role",role);
+
         com.auth.management.entity.User guests = userService.findByEmail(name);
-//        List<com.auth.management.entity.User> guests = userService.findByRole("ROLE_GUEST");
-//
+        Long patientId = guests.getId();
+      List <LocalDateTime> schedules = appointmentService.findDateTimeByPatientId(patientId);
+
+
+
+
+        if(schedules.size()!=0){
+            List<com.auth.management.entity.User> doctorsByPatientId = appointmentService.findDoctorsByPatientId(patientId);
+            model.addAttribute("scheduledDoctors",doctorsByPatientId);
+            List<Appointment> appointmentsByPatientId = appointmentService.findAppointmentsByPatientId(patientId);
+
+            model.addAttribute("appointments",appointmentsByPatientId);
+
+        }
+
+
         model.addAttribute("patients",guests);
 
         List<com.auth.management.entity.User> doctors = userService.findByRole("ROLE_DOCTOR");
         List<com.auth.management.entity.User> nurses = userService.findByRole("ROLE_MANAGER");
         model.addAttribute("doctors",doctors);
         model.addAttribute("nurses",nurses);
+        model.addAttribute("schedules",schedules);
+
+
+
         return "/home";
     }
 
@@ -79,12 +107,12 @@ public String updatePatient(@RequestParam("patientId") Long id,Model model ){
 
         if(result.hasErrors()){
             model.addAttribute("patient", patientUser);
-            return "updateDoc";
+            return "updatePatient";
         }
         userService.saveUpdate(patientUser);
 
         // use a redirect to prevent duplicate submissions
-        return "redirect:/admin/home#doctor";
+        return "redirect:/admin/home#patient";
     }
 
 

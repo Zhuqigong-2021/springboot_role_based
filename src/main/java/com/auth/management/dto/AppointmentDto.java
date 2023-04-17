@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AppointmentDto {
     @NotEmpty(message="patient should not be empty")
     private Long patientId;

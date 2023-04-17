@@ -1,6 +1,6 @@
 package com.auth.management.repository;
 
-import com.auth.management.entity.Role;
+
 import com.auth.management.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -69,7 +69,7 @@ public class AuthController {
     @GetMapping("/admin/home")
     public String home(Model model ){
         User currentUser = SecurityUtils.getCurrentUser();
-        String user = currentUser.getUsername();
+        String user = currentUser!=null? currentUser.getUsername():"";
         model.addAttribute("user",user);
         String role = SecurityUtils.getRole();
 
@@ -79,6 +79,7 @@ public class AuthController {
         model.addAttribute("patients",patients);
         model.addAttribute("doctors",doctors);
         model.addAttribute("nurses",nurses);
+        model.addAttribute("role",role);
 
         if(ROLE.ROLE_GUEST.name().equals(role)){
             return "redirect:/guest";
@@ -95,16 +96,10 @@ public class AuthController {
             return "home";
 
 
-
     }
 
 
 
-
-//    @GetMapping("/nurse")
-//    public String nursePage(){
-//        return "home";
-//    }
 
     @GetMapping("/admin/home/search")
     public String showAllUserPage(@RequestParam("keyword") String keyword, Model model){
@@ -112,27 +107,34 @@ public class AuthController {
         List<com.auth.management.entity.User> byLastName = userService.findByLastName(keyword);
         com.auth.management.entity.User byPhoneNumber = userService.findByPhoneNumber(keyword);
         com.auth.management.entity.User byEmail = userService.findByEmail(keyword);
+
+        User currentUser = SecurityUtils.getCurrentUser();
+        String user = currentUser!=null? currentUser.getUsername():"";
+
         if(keyword.trim().isEmpty()||keyword.trim().isBlank()){
             List<com.auth.management.entity.User> allUsers = userService.findAll();
 
-
+            model.addAttribute("user",user);
             model.addAttribute("users",allUsers);
             return "search";
         }
         if(byFirstName.size()!=0){
-
+            model.addAttribute("user",user);
             model.addAttribute("users",byFirstName);
             return "search";
         }
         if(byLastName.size()!=0){
+            model.addAttribute("user",user);
             model.addAttribute("users",byLastName);
             return "search";
         }
         if(byPhoneNumber!=null){
+            model.addAttribute("user",user);
             model.addAttribute("users",byPhoneNumber);
             return "search";
         }
         if(!byEmail.getEmail().isEmpty()){
+            model.addAttribute("user",user);
             model.addAttribute("users",byEmail);
             return "search";
         }

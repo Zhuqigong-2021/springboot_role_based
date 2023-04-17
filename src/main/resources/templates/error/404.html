@@ -17,14 +17,13 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <style>
-    .search_result{
+    .error_page{
       height:100vh;
-      padding-top:80px;
+
       width:100vw;
       justify-content: center;
       align-items:center;
-      /*padding-left: 20px;*/
-      /*padding-right: 20px;*/
+
 
     }
   </style>
@@ -94,62 +93,12 @@
 
     </header>
 
-<main class="search_result">
-  <div class="container">
-  <table th:fragment="content"  class="table table-bordered table-striped" >
-    <thead class="table-dark">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone Number</th>
-      <th>Action </th>
-    </tr>
-    </thead>
+    <main class="d-flex justify-content-center align-content-center  flex-column error_page bg-dark ">
 
-    <tbody class="patient_tbody">
-    <tr  th:each ="user:${users}" th:data-patient="${user.firstName}">
+    <h1 class="text-danger ">We got a 404 </h1>
+    <p class="lead text-warning">Sorry the page you search doesn't exist</p>
 
-      <td class="text-dark" th:text ="${user.firstName} + ' '+ ${user.lastName}" />
-      <td class="text-dark" th:text ="${user.email}" />
-      <td class="text-dark" th:text="${user.phoneNumber}" />
-
-
-      <td >
-        <!--Add update button link -->
-        <!--              th:href="@{/showFormForUpdatePatient(patientId=${patient.id})}"-->
-        <!--      <a-->
-        <!--              class="btn btn-sm"-->
-
-
-        <!--      >-->
-        <!--        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-repeat" viewBox="0 0 16 16">-->
-        <!--          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>-->
-        <!--          <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>-->
-        <!--        </svg >-->
-        <!--      </a>-->
-
-        <!--Add delete button link -->
-        <!--              th:href="@{/guest/delete(patientId=${patient.id})}"-->
-        <!--      <a-->
-        <!--         class="btn btn-sm"-->
-        <!--         onclick="if (!(confirm('Are you sure you want to delete this patient?'))) return false">-->
-        <!--        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">-->
-        <!--          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>-->
-        <!--          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>-->
-        <!--        </svg></a>-->
-      </td>
-
-
-
-
-    </tr>
-    </tbody>
-  </table>
-  <a class="btn btn-outline-success" href="/admin/home#home">back to the home page</a>
-  </div>
-
-</main>
-
+      </main>
 
     <!--    footer-->
     <footer  class="footer text-light text-center py-3 ">
@@ -158,7 +107,27 @@
         <i class="bi bi-arrow-up-circle h3"></i>
       </a>
     </footer>
+
   </div>
+
+
 </div>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+
 </body>
 </html>

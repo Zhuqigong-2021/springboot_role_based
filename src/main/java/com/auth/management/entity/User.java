@@ -2,10 +2,7 @@ package com.auth.management.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class User {
 
@@ -45,9 +43,14 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "patient" )
+    @OneToMany(mappedBy = "patient" , cascade = CascadeType.REMOVE)
+    @JsonBackReference
     private List<Appointment> appointmentsAsPatient;
 
     @OneToMany(mappedBy = "doctor")
+    @JsonBackReference
     private List<Appointment> appointmentsAsDoctor;
+
+
+
 }
