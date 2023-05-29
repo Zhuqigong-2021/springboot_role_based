@@ -41,8 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                 .requestMatchers("/register/**").permitAll()
+                .requestMatchers("/admin/home/search/**").hasAnyRole("ADMIN","MANAGER")
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "GUEST","DOCTOR","MANAGER")
-
                 .anyRequest()
                 .authenticated()
                 .and()

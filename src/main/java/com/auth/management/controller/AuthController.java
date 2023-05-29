@@ -5,14 +5,14 @@ import com.auth.management.service.UserService;
 import com.auth.management.util.ROLE;
 import com.auth.management.util.SecurityUtils;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -98,49 +98,32 @@ public class AuthController {
 
     }
 
+    @GetMapping("admin/home/search/page")
+    public String showAll(@RequestParam("keyword") String keyword,Model model){
 
+        return findPaginated(1 ,keyword,model);
+    }
+    @GetMapping("admin/home/search/page/{number}")
+    public String findPaginated(@PathVariable(value="number")int number, @RequestParam(value="keyword",required = false,defaultValue = "") String keyword , Model model){
+        int size =4;
 
-
-    @GetMapping("/admin/home/search")
-    public String showAllUserPage(@RequestParam("keyword") String keyword, Model model){
-        List<com.auth.management.entity.User> byFirstName = userService.findByFirstName(keyword);
-        List<com.auth.management.entity.User> byLastName = userService.findByLastName(keyword);
-        com.auth.management.entity.User byPhoneNumber = userService.findByPhoneNumber(keyword);
-        com.auth.management.entity.User byEmail = userService.findByEmail(keyword);
-
+        Pageable pageable = PageRequest.of(number-1, 8);
+        Page<com.auth.management.entity.User> page = userService.search(keyword,pageable);
+        List<com.auth.management.entity.User> users= page.getContent();
         User currentUser = SecurityUtils.getCurrentUser();
         String user = currentUser!=null? currentUser.getUsername():"";
 
-        if(keyword.trim().isEmpty()||keyword.trim().isBlank()){
-            List<com.auth.management.entity.User> allUsers = userService.findAll();
+        model.addAttribute("currentPage",number);
+        model.addAttribute("totalPages",page.getTotalPages());
+        model.addAttribute("totalItems",page.getTotalElements());
+        model.addAttribute("users",users);
+        model.addAttribute("user",user);
+        model.addAttribute("keyword",keyword);
+        return "search";
 
-            model.addAttribute("user",user);
-            model.addAttribute("users",allUsers);
-            return "search";
-        }
-        if(byFirstName.size()!=0){
-            model.addAttribute("user",user);
-            model.addAttribute("users",byFirstName);
-            return "search";
-        }
-        if(byLastName.size()!=0){
-            model.addAttribute("user",user);
-            model.addAttribute("users",byLastName);
-            return "search";
-        }
-        if(byPhoneNumber!=null){
-            model.addAttribute("user",user);
-            model.addAttribute("users",byPhoneNumber);
-            return "search";
-        }
-        if(!byEmail.getEmail().isEmpty()){
-            model.addAttribute("user",user);
-            model.addAttribute("users",byEmail);
-            return "search";
-        }
 
-        return "404";
     }
+
 
 
 

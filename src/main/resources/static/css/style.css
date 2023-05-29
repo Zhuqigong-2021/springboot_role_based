@@ -61,16 +61,19 @@ li {
 }
 
 
-
+.adjust{
+    display: inline-block;
+   transform:translateY(-2px);
+}
 
 /*home*/
 
- *{
-     margin:0;
-     padding:0;
-     box-sizing: border-box;
-     scroll-margin-top: 60px;
- }
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    scroll-margin-top: 60px;
+}
 .sidebar{
     position:fixed;
     bottom:0;
@@ -173,6 +176,18 @@ li {
 }
 .out:hover{
     background-color:#6366f1;
+}
+.btn-outline-purple{
+
+    padding:8px 15px;
+    background: transparent;
+    border-color: #6366f1;
+
+    color:#6366f1;
+}
+.btn-outline-purple:hover{
+    background-color:#6366f1;
+    color:white;
 }
 #home,#depart,#doctor,#nurse,#patient,#about{
     min-height:100vh;
@@ -338,6 +353,81 @@ textarea:focus, input:focus{
     /*background-color:rgba(0,0,0,0.8);*/
     background:linear-gradient(to right ,#6366f1,#a855f7 );
     padding:0 4px;
+}
+
+.table-purple{
+    background:linear-gradient(to right ,#6366f1,#a855f7 );
+    color:white;
+}
+.page_active{
+    background:linear-gradient(to right ,#6366f1,#a855f7 );
+    padding:2px 8px;
+    border-radius:100px;
+    /*border:1px solid lightgrey;*/
+    text-decoration: none;
+    color:white;
+
+}
+.page_number{
+    /*border:1px solid lightgrey;*/
+    text-decoration: none;
+    padding: 0 8px;
+}
+.noSelect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
+}
+.prev{
+    border:1px solid  #6366f1;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    text-decoration: none;
+    color:white;
+    padding:4px 8px;
+    margin-right:10px;
+    background-color: #6366f1;
+
+    text-align: center;
+}
+.prev_disabled{
+    border:1px solid  #6366f1;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    text-decoration: none;
+    color:#6366f1;
+    padding:4px 8px;
+    margin-right:10px;
+    background-color: white;
+
+    text-align: center;
+}
+.next{
+    border:1px solid  #6366f1;
+    background-color: #6366f1;
+    color:white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-decoration: none;
+    padding:4px 8px;
+    margin-left:10px;
+}
+.next_disabled{
+    border:1px solid  #6366f1;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    text-decoration: none;
+    color:#6366f1;
+    padding:4px 8px;
+    margin-left:10px;
+    background-color: white;
+
+    text-align: center;
 }
 .title_heading{
     padding-top:5rem;

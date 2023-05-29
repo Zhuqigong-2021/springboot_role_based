@@ -49,18 +49,10 @@ class UserServiceImplTest {
     private  MapperHelper mapperHelper;
 
 
-//    private UserServiceImpl underTest;
-//
-//    @BeforeEach
-//    void setUp() {
-//
-//        underTest = new UserServiceImpl(userRepository,roleRepository,passwordEncoder,appointmentRepository,mapperHelper);
-//    }
 
     @Test
     void canGetAllUsers() {
-//        List<User> all = underTest.findAll();
-//        verify(userRepository).findAll();
+
 
         //given
        List<User> expectedUserEntity = new ArrayList<>();

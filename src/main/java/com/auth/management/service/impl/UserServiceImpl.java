@@ -8,6 +8,9 @@ import com.auth.management.repository.AppointmentRepository;
 import com.auth.management.repository.RoleRepository;
 import com.auth.management.repository.UserRepository;
 import com.auth.management.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +76,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveDoctor(RegistrationDto registrationDto) {
         User user = new User();
-//        user.setName(registrationDto.getFirstName() + " " + registrationDto.getLastName());
         user.setFirstName(registrationDto.getFirstName());
         user.setLastName(registrationDto.getLastName());
         user.setEmail(registrationDto.getEmail());
@@ -168,4 +170,17 @@ public class UserServiceImpl implements UserService {
 
         return users_with_role;
     }
+
+    @Override
+    public Page<User> findPaginated(int number, int size) {
+        Pageable pageable = PageRequest.of(number-1,size);
+        return this.userRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> search(String keyword, Pageable pageable) {
+        return userRepository.findByKeyword(keyword,pageable);
+
+    }
+
 }

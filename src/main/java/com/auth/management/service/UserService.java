@@ -1,11 +1,9 @@
 package com.auth.management.service;
 
-import com.auth.management.dto.AppointmentDto;
 import com.auth.management.dto.RegistrationDto;
-import com.auth.management.entity.Appointment;
-import com.auth.management.entity.Role;
 import com.auth.management.entity.User;
-import com.auth.management.model.UserModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -32,13 +30,17 @@ public interface UserService {
 
     User findUserById(Long id);
 
-   void deleteUserById(Long id);
+    void deleteUserById(Long id);
 
-   List<User> findByFirstName(String firstName);
+    List<User> findByFirstName(String firstName);
 
-   List<User> findByLastName(String lastName);
+    List<User> findByLastName(String lastName);
 
-   User findByPhoneNumber(String phoneNumber);
+    User findByPhoneNumber(String phoneNumber);
 
-   List<User> findAll();
+    List<User> findAll();
+
+    Page<User> findPaginated(int number, int size);
+
+    Page<User> search(String keyword, Pageable pageable);
 }

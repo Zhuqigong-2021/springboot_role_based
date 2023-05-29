@@ -82,7 +82,7 @@
     <!--    top search bar-->
     <header  class="header  ">
       <div class="container">
-        <form th:action="@{/admin/home/search}" method="GET" class="d-flex justify-content-end">
+        <form th:action="@{/admin/home/search/page}" method="GET" class="d-flex justify-content-end">
 
           <div class="input-group">
             <input type="text" class="form-control search" name="keyword" placeholder="search ..." >
@@ -94,61 +94,79 @@
 
     </header>
 
-<main class="search_result">
-  <div class="container">
-  <table th:fragment="content"  class="table table-bordered table-striped" >
-    <thead class="table-dark">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone Number</th>
-      <th>Action </th>
-    </tr>
-    </thead>
+    <main class="search_result">
+      <div class="container">
+        <div class="mb-3  d-flex justify-content-between align-items-center"><h4>All Users Information</h4>   <span>page [[${currentPage}]] of [[${totalPages}]]</span> </div>
+        <table th:fragment="content"  class="table table-bordered table-striped" >
+          <thead class="table-purple">
+          <tr >
+            <th class="search_title " ><i class="bi bi-person adjust "></i> <span>Id</span> </th>
+            <th class="search_title"><i class="bi bi-person-fill adjust "></i> <span>Name</span> </th>
+            <th class="search_title"> <i class="bi bi-envelope adjust "></i> <span>Email</span> </th>
+            <th class="search_title" > <i class="bi bi-telephone adjust "></i> <span>Phone Number</span> </th>
+            <!--      <th>Action </th>-->
+          </tr>
+          </thead>
 
-    <tbody class="patient_tbody">
-    <tr  th:each ="user:${users}" th:data-patient="${user.firstName}">
+          <tbody class="patient_tbody">
+          <tr  th:each ="user:${users}" th:data-patient="${user.firstName}">
 
-      <td class="text-dark" th:text ="${user.firstName} + ' '+ ${user.lastName}" />
-      <td class="text-dark" th:text ="${user.email}" />
-      <td class="text-dark" th:text="${user.phoneNumber}" />
-
-
-      <td >
-        <!--Add update button link -->
-        <!--              th:href="@{/showFormForUpdatePatient(patientId=${patient.id})}"-->
-        <!--      <a-->
-        <!--              class="btn btn-sm"-->
-
-
-        <!--      >-->
-        <!--        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-repeat" viewBox="0 0 16 16">-->
-        <!--          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>-->
-        <!--          <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>-->
-        <!--        </svg >-->
-        <!--      </a>-->
-
-        <!--Add delete button link -->
-        <!--              th:href="@{/guest/delete(patientId=${patient.id})}"-->
-        <!--      <a-->
-        <!--         class="btn btn-sm"-->
-        <!--         onclick="if (!(confirm('Are you sure you want to delete this patient?'))) return false">-->
-        <!--        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash" viewBox="0 0 16 16">-->
-        <!--          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>-->
-        <!--          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>-->
-        <!--        </svg></a>-->
-      </td>
+            <td class="text-dark" th:text ="${user.id}" />
+            <td class="text-dark" th:text ="${user.firstName} + ' '+ ${user.lastName}" />
+            <td class="text-dark" th:text ="${user.email}" />
+            <td class="text-dark" th:text="${user.phoneNumber}" />
 
 
 
 
-    </tr>
-    </tbody>
-  </table>
-  <a class="btn btn-outline-success" href="/admin/home#home">back to the home page</a>
-  </div>
 
-</main>
+
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+
+        <footer class="panel-footer px-2">
+          <div th:if="${totalPages > 1}">
+            <div class="row align-items-center  ">
+              <div class="col-2 fw-bolder">
+                Total Users: [[${totalItems}]]
+              </div>
+
+
+
+              <div class="col-9 ms-auto " >
+                <a class="prev noSelect " th:if="${currentPage >1}" th:href="@{'/admin/home/search/page/' + ${currentPage -1}}">prev</a>
+                <span class="noSelect prev_disabled "  th:unless="${currentPage >1}">prev</span>
+
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+
+      <a class="page_number"  th:if="${currentPage != i}" th:href="@{'/admin/home/search/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}" th:class="page_active">[[${i}]]</span> &nbsp; &nbsp;  </span>
+
+                <a class="next noSelect " th:if="${currentPage < totalPages}" th:href="@{'/admin/home/search/page/' + ${currentPage + 1}}">next</a>
+                <span  class="noSelect next_disabled " th:unless="${currentPage < totalPages}">next</span>
+
+              </div>
+
+              <div class="col ">
+                <a class="btn btn-outline-purple " href="/admin/home#home">Home</a>
+              </div>
+
+            </div>
+          </div>
+        </footer>
+
+
+      </div>
+
+
+
+
+    </main>
 
 
     <!--    footer-->
